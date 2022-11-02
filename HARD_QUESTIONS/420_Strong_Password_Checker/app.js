@@ -53,6 +53,20 @@ var strongPasswordChecker = function (password) {
 
     steps = 6 - password.length + magic;
   }
-  console.log(steps);
+  // console.log(steps);
+
+  // now we need to check the passwords over 20 characters. same as above but working backwards
+  // if character count is equal to or above 23, then the steps required is password.length - 20
+  if (password.length >= 23) steps = password.length - 20;
+
+  // if password is 21 or 22 characters, then we have to do the same kind of magic above
+  if (password.length == 22 || password.length == 21) {
+    // how many truths
+    // how many decrements
+    // subtract decrements from missing truths, then add leftover missing truths to decrements
+    let magic = 3 - checkCasesAndDigits.truths - (password.length - 20);
+    if (magic < 0) magic = 0;
+    steps = password.length - 20 + magic;
+  }
 };
-strongPasswordChecker("!!!!!");
+strongPasswordChecker("012345678901234567890");
